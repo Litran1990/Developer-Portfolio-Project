@@ -22,6 +22,10 @@
     background-color: #9b59b6;
 }
 
+.bg-color-contact {
+    background-color: #ffffff; 
+}
+
 .ui-menu-color-home {
     background-color: #e67e22;
 }
@@ -36,6 +40,11 @@
 
 .ui-menu-color-download {
     background-color: #525252;
+}
+
+.contact-header {
+    color: #8f8f8f;
+    font-weight: 500;
 }
 
 /*-------------------------------------------------------------Special Paddings/Margins/Text*/
@@ -333,6 +342,39 @@ footer .cv-pdf i:hover {
     margin-bottom: 30px;
 }
 
+/*-------------------------------------------------------------Contact*/
+
+.contact-heading {
+    font-family: "Exo", sans-serif;
+    font-weight: 300;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.center-form {
+    padding-top: 10px;
+    margin: 0 auto;
+    max-width: 70%;
+}
+
+button[type="submit"] {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    background-color: #e84610;
+    border-color: #e84610;
+    color: #fafafa;
+    transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    color: #525252;
+    background-color: #e84610;
+    border-color: #e84610;
+}
+
 /*-------------------------------------------------------------Media Queries*/
 
 @media(min-width: 992px) {
@@ -342,4 +384,12 @@ footer .cv-pdf i:hover {
         display: table-cell;
         height: 339px;
     }
+    
+    .center-form {
+    padding-top: 10px;
+    min-height: 240px;
+    margin: 0 auto;
+    max-width: 50%;
+}
+
 }
