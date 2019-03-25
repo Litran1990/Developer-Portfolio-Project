@@ -1,3 +1,4 @@
+// Second we built the userInformationHTMML inserted in the first function
 function userInformationHTML(user) {
     return `
             <h2>${user.name}
@@ -15,6 +16,31 @@ function userInformationHTML(user) {
             </div>`;
 }
 
+
+// Finally, the third function is inserted in order to display the user repo data info
+function repoInformationHTML(repos) {
+    if(repos.length === 0) {
+        return `<div class="clearfix repo-list">No Repos!</div>`;
+    } 
+    
+    var listItemsHTML = repos.map(function(repos) {
+        return `
+            <li>
+                <a href="${repos.html_url}" target="_blank">${repos.name}</a>
+            </li>`;
+    });
+    
+    return `<div class="clearfix repo-list">
+                <p>
+                    <strong>Repo List:</strong>
+                </p>
+                <ul>
+                ${listItemsHTML.join("\n")}
+                </ul>
+            </div>`;
+}
+
+// First we built the fetchGitHubInformation function
 function fetchGitHubInformation(event) {
 
     var username = $("#gh-username").val();
@@ -28,11 +54,14 @@ function fetchGitHubInformation(event) {
 
     // Issue the promise
     $.when(
-        $.getJSON(`https://api.github.com/users/${username}`)
-        .then(
-            function(response) {
-                var userData = response;
-                $("#gh-user-data").html(userInformationHTML(userData));
+        $.getJSON(`https://api.github.com/users/${username}`),
+        $.getJSON(`https://api.github.com/users/${username}/repos`)
+    ).then(
+            function(firstResponse, secondResponse) {
+                var userData = firstResponse[0];
+                var repoData = secondResponse[0];
+                $("#gh-user-data").html(userInformationHTML(userData)),
+                $("#gh-repo-data").html(repoInformationHTML(repoData));
             },
             function(errorResponse) {
                 if (errorResponse.status === 404) {
@@ -42,7 +71,7 @@ function fetchGitHubInformation(event) {
                     console.log(errorResponse);
                     $("#gh-user-data").html(`<h2>Error: ${errorResponse.responseJSON.message}</h2>`);
                 }
-            })
+            }
     );
 
 }
