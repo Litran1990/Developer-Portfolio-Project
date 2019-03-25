@@ -43,6 +43,10 @@ function repoInformationHTML(repos) {
 // First we built the fetchGitHubInformation function
 function fetchGitHubInformation(event) {
 
+    // Now, in order to have the repo-data div cleared after each search, we must perform the following action
+    $("#gh-user-data").html("");
+    $("#gh-repo-data").html("");
+    
     var username = $("#gh-username").val();
     if (!username) {
         $("#gh-user-data").html(`<h2>Please enter a github username</h2>`);
@@ -52,7 +56,7 @@ function fetchGitHubInformation(event) {
     // Loader in place
     $("#gh-user-data").html(`<div id="loader"><img src="assets/css/loader.gif" alt="loading..."></div>`);
 
-    // Issue the promise
+    // Issue the promises
     $.when(
         $.getJSON(`https://api.github.com/users/${username}`),
         $.getJSON(`https://api.github.com/users/${username}/repos`)
@@ -75,3 +79,6 @@ function fetchGitHubInformation(event) {
     );
 
 }
+
+// To have the Octocat profile displayed once the page is loaded
+$(document).ready(fetchGitHubInformation);
